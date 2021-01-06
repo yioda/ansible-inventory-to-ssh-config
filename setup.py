@@ -16,7 +16,7 @@ setup(
     },
     install_requires=[
         'ansible',
-        'sshconf'
+        'sshconf=0.2.1'
     ],
     python_requires=">=3"
 )
