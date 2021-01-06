@@ -17,7 +17,7 @@ def get_args():
     parser.add_argument("inventory_file", help="ansible inventory file")
     parser.add_argument("-o", "--output", help="ssh config output path (default: ~/.ssh/config)", default="~/.ssh/config")
     parser.add_argument("-d", "--dry-run", help="show new configurations without updating file", action="store_true")
-    parser.add_argument("--with-backup", help="backup config file before updating(default: true)", action="store_true", default=True)
+    parser.add_argument("--without-backup", help="update without backup", action="store_true", default=False)
 
     return parser.parse_args()
 
@@ -50,7 +50,7 @@ def print_ssh_config(ssh_config):
         print(h, ssh_config.host(h))
 
 
-def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_backup=False):
+def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_backup=True):
     print("Inventory: {}".format(inventory_file))
     print("Target: {}".format(output))
 
@@ -83,5 +83,5 @@ def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_
 
 def main():
     args = get_args()
-    ansible_inventory_to_ssh_config(args.inventory_file, expanduser(args.output), args.dry_run, args.with_backup)
+    ansible_inventory_to_ssh_config(args.inventory_file, expanduser(args.output), args.dry_run, not args.without_backup)
 
