@@ -9,6 +9,10 @@ $ pip3 install --user ansible sshconf
 
 ## Install
 
+``` bash
+$ pip install ansible-inventory-to-ssh-config
+```
+
 From github:
 
 ``` bash
