@@ -25,7 +25,7 @@ $ pip3 install .
 ## Usage
 
 ``` bash
-$ aitsc -h
+$ aitsc -h # or ansible-inventory-to-ssh-config -h
 usage: aitsc [-h] [-o OUTPUT] [-d] [--with-backup] inventory_file
 
 positional arguments:
