@@ -5,15 +5,15 @@ from sshconf import read_ssh_config, empty_ssh_config_file
 from os.path import expanduser
 from argparse import ArgumentParser
 from argparse import RawTextHelpFormatter
-# from pkg_resources import get_distribution
+from pkg_resources import get_distribution
 from shutil import copyfile
 from datetime import datetime
 
 
 def get_args():
     parser = ArgumentParser(formatter_class=RawTextHelpFormatter)
-    # parser.add_argument('-v', '--version', action='version',
-    #                     version=get_distribution('ansible-inventory-to-ssh-config').version)
+    parser.add_argument('-v', '--version', action='version',
+                        version=get_distribution('ansible-inventory-to-ssh-config').version)
     parser.add_argument("inventory_file", help="ansible inventory file")
     parser.add_argument("-o", "--output", help="ssh config output path (default: ~/.ssh/config)", default="~/.ssh/config")
     parser.add_argument("-d", "--dry-run", help="show new configurations without updating file", action="store_true")
@@ -70,14 +70,13 @@ def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_
         else:
             ssh_config.save()
     except FileNotFoundError:
-        print("No such file, generate a new file: {} ...".format(output))
-
         ssh_config = empty_ssh_config_file()
         update_ssh_config(ssh_config, inventories, variables)
 
         if dry_run:
             print_ssh_config(ssh_config)
         else:
+            print("No such file, generate a new file: {} ...".format(output))
             ssh_config.write(output)
 
 
