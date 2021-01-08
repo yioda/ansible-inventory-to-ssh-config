@@ -49,3 +49,42 @@ $ aitsc $INVENTORY_FILE -o new_ssh_config
 # Show content without output
 $ aitsc $INVENTORY_FILE -d
 ```
+
+## Example
+
+``` bash
+# Input (Inventory File)
+$ cat hosts
+
+[group_1]
+node1 ansible_ssh_host=192.168.0.5
+node2 ansible_ssh_host=192.168.0.6
+
+[group_2]
+node3 ansible_host=192.168.0.7
+node4 ansible_host=192.168.0.8 
+
+# Commnad
+$ aitsc hosts -o newconfig
+Inventory: hosts
+Target: newconfig
+No such file, generate a new file: new_ssh_config ... 
+
+# Output (SSH Config Format)
+$ cat new_ssh_config
+
+Host node1
+  HostName 192.168.0.5
+
+
+Host node2
+  HostName 192.168.0.6
+
+
+Host node3
+  HostName 192.168.0.7
+
+
+Host node4
+  HostName 192.168.0.8 
+```
