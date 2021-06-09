@@ -15,7 +15,7 @@ setup(
         ],
     },
     install_requires=[
-        'ansible==2.10.5',
+        'ansible==2.10.7',
         'sshconf==0.2.2'
     ],
     python_requires=">=3"
