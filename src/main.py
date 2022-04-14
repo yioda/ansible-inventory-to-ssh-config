@@ -16,6 +16,7 @@ def get_args():
                         version=get_distribution('ansible-inventory-to-ssh-config').version)
     parser.add_argument("inventory_file", help="ansible inventory file")
     parser.add_argument("-o", "--output", help="ssh config output path (default: ~/.ssh/config)", default="~/.ssh/config")
+    parser.add_argument("-g", "--group", help="ansible inventory group to use", default="ALL")
     parser.add_argument("-d", "--dry-run", help="show new configurations without updating file", action="store_true")
     parser.add_argument("--without-backup", help="update without backup", action="store_true", default=False)
 
@@ -50,7 +51,7 @@ def print_ssh_config(ssh_config):
         print(h, ssh_config.host(h))
 
 
-def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_backup=True):
+def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_backup=True, group="ALL"):
     print("Inventory: {}".format(inventory_file))
     print("Target: {}".format(output))
 
@@ -60,7 +61,7 @@ def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_
 
     try:
         ssh_config = read_ssh_config(output)
-        update_ssh_config(ssh_config, inventories, variables)
+        update_ssh_config(ssh_config, inventories, variables, group)
 
         if with_backup:
             backup(output)
@@ -71,7 +72,7 @@ def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_
             ssh_config.save()
     except FileNotFoundError:
         ssh_config = empty_ssh_config_file()
-        update_ssh_config(ssh_config, inventories, variables)
+        update_ssh_config(ssh_config, inventories, variables, group)
 
         if dry_run:
             print_ssh_config(ssh_config)
@@ -82,5 +83,5 @@ def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_
 
 def main():
     args = get_args()
-    ansible_inventory_to_ssh_config(args.inventory_file, expanduser(args.output), args.dry_run, not args.without_backup)
+    ansible_inventory_to_ssh_config(args.inventory_file, expanduser(args.output), args.dry_run, not args.without_backup, args.group)
 

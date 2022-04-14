@@ -25,15 +25,18 @@ $ pip3 install .
 
 ``` bash
 $ aitsc -h # or ansible-inventory-to-ssh-config -h
-usage: aitsc [-h] [-o OUTPUT] [-d] [--with-backup] inventory_file
+usage: aitsc [-h] [-v] [-o OUTPUT] [-g GROUP] [-d] [--without-backup] inventory_file
 
 positional arguments:
   inventory_file        ansible inventory file
 
 optional arguments:
   -h, --help            show this help message and exit
+  -v, --version         show program's version number and exit
   -o OUTPUT, --output OUTPUT
                         ssh config output path (default: ~/.ssh/config)
+  -g GROUP, --group GROUP
+                        ansible inventory group to use
   -d, --dry-run         show new configurations without updating file
   --without-backup      update without backup
 
@@ -62,13 +65,13 @@ node2 ansible_ssh_host=192.168.0.6
 
 [group_2]
 node3 ansible_host=192.168.0.7
-node4 ansible_host=192.168.0.8 
+node4 ansible_host=192.168.0.8
 
 # Commnad
 $ aitsc hosts -o newconfig
 Inventory: hosts
 Target: newconfig
-No such file, generate a new file: new_ssh_config ... 
+No such file, generate a new file: new_ssh_config ...
 
 # Output (SSH Config Format)
 $ cat new_ssh_config
@@ -86,5 +89,5 @@ Host node3
 
 
 Host node4
-  HostName 192.168.0.8 
+  HostName 192.168.0.8
 ```
