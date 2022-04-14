@@ -21,24 +21,43 @@ def get_args():
 
     return parser.parse_args()
 
-
 def update_ssh_config(ssh_config, inventories, variables, group='all'):
+    def _get_key(vars, keynames):
+        value = vars.get(keynames[0], vars.get(keynames[1], None))
+        if not value:
+            raise KeyError(f"Provided dictionary does not contain values for given keys: {keynames}")
+        return value
+
     for host in inventories.get_hosts(group):
         host_var = variables.get_vars(host=host)
+        host_name = host.get_name()
+        ssh_config_options = {}
 
         try:
-            address = host_var['ansible_ssh_host']
+            ssh_config_options["HostName"] = _get_key(host_var, ("ansible_host","ansible_ssh_host"))
         except KeyError:
-            try:
-                address = host_var['ansible_host']
-            except KeyError:
-                print('Failed to get [{}] ssh address... '.format(host))
-                continue
+            print('Failed to get [{}] ssh address... '.format(host))
+            continue
 
         try:
-            ssh_config.set(host.get_name(), HostName=address)
+            ssh_config_options["Port"] = _get_key(host_var, ("ansible_port","ansible_ssh_port"))
+        except KeyError:
+            # Field is not mandatory, no need to do error handling
+            pass
+
+        try:
+            ssh_config_options["User"] = _get_key(host_var, ("ansible_user","ansible_ssh_user"))
+        except KeyError:
+            # Field is not mandatory, no need to do error handling
+            pass
+
+
+        try:
+            ssh_config.set(host_name, **ssh_config_options)
         except ValueError:
-            ssh_config.add(host.get_name(), HostName=address)
+            ssh_config.add(host_name, **ssh_config_options)
+
+
 
 
 def backup(target_file):
