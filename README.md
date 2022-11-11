@@ -1,6 +1,10 @@
 # Ansible inventory file to ssh config
 This is a python tool for updating ssh config from ansible inventory file.
 
+## Dependencies
+
+- [ansible>=2.10.7](https://pypi.org/project/ansible/2.10.5/)
+- [sshconf==0.2.5](https://pypi.org/project/sshconf/0.2.5/)
 
 ## Install
 
