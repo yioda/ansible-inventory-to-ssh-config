@@ -25,29 +25,35 @@ $ pip3 install .
 
 ``` bash
 $ aitsc -h # or ansible-inventory-to-ssh-config -h
-usage: aitsc [-h] [-o OUTPUT] [-d] [--with-backup] inventory_file
+usage: aitsc [-h] [-v] [-o OUTPUT] [-d] [-b] [-O] inventory_file
 
 positional arguments:
   inventory_file        ansible inventory file
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
+  -v, --version         show program version number and exit
   -o OUTPUT, --output OUTPUT
-                        ssh config output path (default: ~/.ssh/config)
+                        ssh config output path (default: ~/.ssh/config.ansible)
   -d, --dry-run         show new configurations without updating file
-  --without-backup      update without backup
+  -b, --with-backup     update with backup
+  -O, --override        override whole config, this would remove those hosts undefined in playbook
 
-# Update ~/.ssh/config from specified inventory file
+
+# Update ~/.ssh/config.ansible from specified inventory file
 $ aitsc $INVENTORY_FILE
 
-# Update without backup
-$ aitsc $INVENTORY_FILE --without-backup
+# Update with backup
+$ aitsc $INVENTORY_FILE --with-backup
 
 # Output as a new file
 $ aitsc $INVENTORY_FILE -o new_ssh_config
 
 # Show content without output
 $ aitsc $INVENTORY_FILE -d
+
+# Override while config
+$ aitsc $INVENTORY_FILE -O
 ```
 
 ## Example
@@ -62,13 +68,12 @@ node2 ansible_ssh_host=192.168.0.6
 
 [group_2]
 node3 ansible_host=192.168.0.7
-node4 ansible_host=192.168.0.8 
+node4 ansible_host=192.168.0.8
 
 # Commnad
 $ aitsc hosts -o newconfig
 Inventory: hosts
 Target: newconfig
-No such file, generate a new file: new_ssh_config ... 
 
 # Output (SSH Config Format)
 $ cat new_ssh_config
@@ -86,5 +91,5 @@ Host node3
 
 
 Host node4
-  HostName 192.168.0.8 
+  HostName 192.168.0.8
 ```

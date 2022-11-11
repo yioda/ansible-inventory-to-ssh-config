@@ -1,5 +1,8 @@
 __pycache__/
 *.so
 dist/
-*.egg
+*.egg.*
+*egg-info*
 
+.python-version
+build/

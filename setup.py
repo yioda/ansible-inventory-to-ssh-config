@@ -1,17 +1,9 @@
 from setuptools import setup, find_packages
-from subprocess import check_output
 
-try:
-    current_version = check_output(
-        ['git', 'describe', '--tags']).rstrip().decode()
-    print(current_version)
-except Exception as e:
-    current_version = 'g' + check_output(
-        ['git', 'log', '-1', '--format=%h']).rstrip().decode()
 
 setup(
     name="ansible-inventory-to-ssh-config",
-    version=current_version,
+    version='1.0.0',
     description="Generate ssh config file from Ansible inventory",
     author="Yioda",
     author_email='jyc180g@gmail.com',
@@ -24,8 +16,8 @@ setup(
         ],
     },
     install_requires=[
-        'ansible>=2.10.7',
-        'sshconf==0.2.2'
+        'ansible==2.10.5',
+        'sshconf==0.2.5',
     ],
     python_requires=">=3"
 )
