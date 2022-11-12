@@ -15,10 +15,19 @@ def get_args():
     parser.add_argument('-v', '--version', action='version',
                         version=get_distribution('ansible-inventory-to-ssh-config').version)
     parser.add_argument("inventory_file", help="ansible inventory file")
-    parser.add_argument("-o", "--output", help="ssh config output path (default: ~/.ssh/config.ansible)", default="~/.ssh/config.ansible")
-    parser.add_argument("-d", "--dry-run", help="show new configurations without updating file", action="store_true")
-    parser.add_argument("-b", "--with-backup", help="update with backup", action="store_true", default=False)
-    parser.add_argument("-O", "--override", help="override whole config, this would remove those hosts undefined in playbook", action="store_true", default=False)
+    parser.add_argument("-o", "--output",
+                        help="ssh config output path (default: ~/.ssh/config.ansible)",
+                        default="~/.ssh/config.ansible")
+    parser.add_argument("-d", "--dry-run",
+                        help="show new configurations without updating file",
+                        action="store_true")
+    parser.add_argument("-b", "--with-backup",
+                        help="update with backup",
+                        action="store_true",
+                        default=False)
+    parser.add_argument("-O", "--override",
+                        help="override whole config, would remove undefiend hosts in playbook",
+                        action="store_true", default=False)
 
     return parser.parse_args()
 
@@ -49,7 +58,8 @@ def backup(target_file):
     copyfile(target_file, f'{target_file}.{datetime.now().strftime("%Y%m%d_%H%M%S")}')
 
 
-def ansible_inventory_to_ssh_config(inventory_file, output, dry_run=False, with_backup=False, override=False):
+def ansible_inventory_to_ssh_config(
+        inventory_file, output, dry_run=False, with_backup=False, override=False):
     print(f'Inventory: {inventory_file}')
     print(f'Target: {output}')
 
