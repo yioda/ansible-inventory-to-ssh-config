@@ -72,7 +72,7 @@ node2 ansible_ssh_host=192.168.0.6
 
 [group_2]
 node3 ansible_host=192.168.0.7
-node4 ansible_host=192.168.0.8
+node4 ansible_host=192.168.0.8 ansible_port=10422 ansible_user=foo
 
 # Commnad
 $ aitsc hosts -o newconfig
@@ -96,4 +96,6 @@ Host node3
 
 Host node4
   HostName 192.168.0.8
+  Port 10422
+  User foo
 ```
