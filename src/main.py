@@ -39,6 +39,7 @@ def update_ssh_config(ssh_config_file, inventories, variables, group='all'):
         hostname = host_vars.get("ansible_ssh_host", host_vars.get("ansible_host", '127.0.0.1'))
         port = host_vars.get("ansible_ssh_port", host_vars.get("ansible_port", 22))
         user = host_vars.get("ansible_ssh_user", host_vars.get("ansible_user", None))
+        identityfile = host_vars.get("ansible_ssh_private_key_file")
 
         # Update to ssh config
         ssh_vars = ssh_config_file.host(host.get_name())
@@ -47,6 +48,8 @@ def update_ssh_config(ssh_config_file, inventories, variables, group='all'):
             ssh_vars.update({'Port': port})
         if user:
             ssh_vars.update({'User': user})
+        if identityfile:
+            ssh_vars.update({'IdentityFile': identityfile})
 
         try:
             ssh_config_file.set(host.get_name(), **ssh_vars)
