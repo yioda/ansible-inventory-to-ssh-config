@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="ansible-inventory-to-ssh-config",
-    version='1.0.1',
+    version='1.1.0',
     description="Generate ssh config file from Ansible inventory",
     author="Yioda",
     author_email='jyc180g@gmail.com',

@@ -71,7 +71,7 @@ node1 ansible_ssh_host=192.168.0.5
 node2 ansible_ssh_host=192.168.0.6
 
 [group_2]
-node3 ansible_host=192.168.0.7
+node3 ansible_host=192.168.0.7 ansible_ssh_private_key_file=~/.ssh/id_rsa_for_ansible
 node4 ansible_host=192.168.0.8 ansible_port=10422 ansible_user=foo
 
 # Commnad
@@ -92,6 +92,7 @@ Host node2
 
 Host node3
   HostName 192.168.0.7
+  IdentityFile ~/.ssh/id_rsa_for_ansible
 
 
 Host node4
