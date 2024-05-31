@@ -1,2 +1,3 @@
 ansible>=2.10.7
 sshconf==0.2.5
+setuptools-scm
