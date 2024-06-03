@@ -8,7 +8,8 @@ lint_check:
 	pylint --disable C0114,C0115,C0116 $(PY_FILES)
 
 build: clean
-	python setup.py sdist bdist_wheel
+	pip install --upgrade build
+	python -m build
 
 push_test:
 	python3 -m twine upload --repository testpypi dist/*
