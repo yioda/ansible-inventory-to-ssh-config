@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools >= 66.1.0", "setuptools_scm>=8"]  # minimum setuptools version supporting Python 3.12
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ansible-inventory-to-ssh-config"
+dynamic = ["version"]
+description = "Generate ssh config file from Ansible inventory"
+dependencies = [
+  "ansible>=2.10.7",
+  "sshconf==0.2.5",
+]
+requires-python = ">=3.8"
+authors = [
+  {name = "Yioda", email = "jyc180g@gmail.com"},
+]
+maintainers = [
+  {name = "Yioda", email = "jyc180g@gmail.com"}
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["egg", "bacon", "sausage", "tomatoes", "Lobster Thermidor"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python"
+]
+
+# [project.optional-dependencies]
+
+[project.urls]
+Homepage = "https://github.com/yioda/ansible-inventory-to-ssh-config"
+Documentation = "https://github.com/yioda/ansible-inventory-to-ssh-config"
+Repository = "https://github.com/yioda/ansible-inventory-to-ssh-config.git"
+# "Bug Tracker" = 
+# Changelog = 
+
+# setuptools will attempt to perform Automatic discovery, which should cover most
+# popular project directory organization techniques, 
+# such as the src-layout and the flat-layout.
+# Ref:
+#  - https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html
+#  - https://setuptools.pypa.io/en/latest/userguide/package_discovery.html#src-layout
+[project.scripts]
+ansible-inventory-to-ssh-config = "aitsc.main:main"
+aitsc = "aitsc.main:main"
+
+#[project.gui-scripts]
+
+#[project.entry-points]
+
+[tool.setuptools_scm]
