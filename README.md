@@ -3,7 +3,7 @@
 [![PyPI pulish](https://github.com/yioda/ansible-inventory-to-ssh-config/actions/workflows/publish-to-pypi.yml/badge.svg)](https://github.com/yioda/ansible-inventory-to-ssh-config/actions/workflows/publish-to-pypi.yml)
 
 # Ansible inventory file to ssh config
-This is a python tool for updating ssh config from ansible inventory file.
+This is a Python tool for updating the SSH config from the Ansible inventory file.
 
 ## Dependencies
 
@@ -12,21 +12,30 @@ This is a python tool for updating ssh config from ansible inventory file.
 
 ## Install
 
+> [!WARNING]
+> This project would install Ansible with the specified version metioned above, be careful that might conflict with the version you are using currently.
+> You might need a separated env for this tool, for example:
+> ``` console
+> $ mkdir foo;cd foo
+> foo$ pyenv virtualenv 3.11.4 bar;pyenv local bar
+> (bar)foo$
+> ```
+
 ``` bash
-$ pip3 install --user ansible-inventory-to-ssh-config
+$ pip install ansible-inventory-to-ssh-config
 ```
 
-From github:
+From Github:
 
 ``` bash
-$ pip3 install --user git+https://github.com/yioda/ansible-inventory-to-ssh-config
+$ pip install git+https://github.com/yioda/ansible-inventory-to-ssh-config
 ```
 
 Local install
 
 ``` bash
 $ git clone https://github.com/yioda/ansible-inventory-to-ssh-config.git
-$ pip3 install .
+$ pip install .
 ```
 
 ## Usage
