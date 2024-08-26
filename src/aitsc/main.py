@@ -3,17 +3,17 @@ from datetime import datetime
 from os.path import expanduser
 from shutil import copyfile
 
+from importlib.metadata import distribution
 from ansible.inventory.manager import InventoryManager
 from ansible.parsing.dataloader import DataLoader
 from ansible.vars.manager import VariableManager
-from pkg_resources import get_distribution
 from sshconf import empty_ssh_config_file, read_ssh_config_file
 
 
 def get_args():
     parser = ArgumentParser(formatter_class=RawTextHelpFormatter)
     parser.add_argument('-v', '--version', action='version',
-                        version=get_distribution('ansible-inventory-to-ssh-config').version)
+                        version=distribution('ansible-inventory-to-ssh-config').version)
     parser.add_argument("inventory_file", help="ansible inventory file")
     parser.add_argument("-o", "--output",
                         help="ssh config output path (default: ~/.ssh/config.ansible)",
