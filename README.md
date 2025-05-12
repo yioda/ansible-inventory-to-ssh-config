@@ -12,30 +12,11 @@ This is a Python tool for updating the SSH config from the Ansible inventory fil
 
 ## Install
 
-> [!WARNING]
-> This project would install Ansible with the specified version metioned above, be careful that might conflict with the version you are using currently.
-> You might need a separated env for this tool, for example:
-> ``` console
-> $ mkdir foo;cd foo
-> foo$ pyenv virtualenv 3.11.4 bar;pyenv local bar
-> (bar)foo$
-> ```
+To prevent messing up your Python dependencies, use `pipx` to install this tool instead of `pip`.
 
 ``` bash
-$ pip install ansible-inventory-to-ssh-config
-```
-
-From Github:
-
-``` bash
-$ pip install git+https://github.com/yioda/ansible-inventory-to-ssh-config
-```
-
-Local install
-
-``` bash
-$ git clone https://github.com/yioda/ansible-inventory-to-ssh-config.git
-$ pip install .
+$ pipx install ansible-inventory-to-ssh-config
+$ pipx ensurepath  # then you might need to restart/relogin your shell
 ```
 
 ## Usage
