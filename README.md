@@ -1,3 +1,5 @@
+
+
 [![PyPI version](https://img.shields.io/pypi/v/ansible-core.svg)](https://pypi.org/project/ansible-core)
 [![Pylint check](https://github.com/yioda/ansible-inventory-to-ssh-config/actions/workflows/pylint.yml/badge.svg)](https://github.com/yioda/ansible-inventory-to-ssh-config/actions/workflows/pylint.yml)
 [![PyPI pulish](https://github.com/yioda/ansible-inventory-to-ssh-config/actions/workflows/publish-to-pypi.yml/badge.svg)](https://github.com/yioda/ansible-inventory-to-ssh-config/actions/workflows/publish-to-pypi.yml)
@@ -7,7 +9,7 @@ This is a Python tool for updating the SSH config from the Ansible inventory fil
 
 ## Dependencies
 
-- [ansible>=2.10.7](https://pypi.org/project/ansible/2.10.5/)
+- [ansible>=2.10.7](https://pypi.org/project/ansible/2.10.7/)
 - [sshconf==0.2.5](https://pypi.org/project/sshconf/0.2.5/)
 
 ## Install
