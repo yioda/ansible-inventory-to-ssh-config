@@ -31,6 +31,15 @@ def get_args():
 
     return parser.parse_args()
 
+def parse_ssh_common_args(sca):
+    args = sca.split("-o ")
+    dargs = {}
+    for a in args:
+        if len(a) == 0:
+            continue
+        pair = a.split("=")
+        dargs[pair[0]] = pair[1].replace("\"", "")
+    return dargs
 
 def update_ssh_config(ssh_config_file, inventories, variables, group='all'):
     for host in inventories.get_hosts(group):
@@ -39,6 +48,7 @@ def update_ssh_config(ssh_config_file, inventories, variables, group='all'):
         hostname = host_vars.get("ansible_ssh_host", host_vars.get("ansible_host", '127.0.0.1'))
         port = host_vars.get("ansible_ssh_port", host_vars.get("ansible_port", 22))
         user = host_vars.get("ansible_ssh_user", host_vars.get("ansible_user", None))
+        ssh_common_args = host_vars.get("ansible_ssh_common_args", host_vars.get("ansible_ssh_common_args", None))
         identityfile = host_vars.get("ansible_ssh_private_key_file")
 
         # Update to ssh config
@@ -50,6 +60,10 @@ def update_ssh_config(ssh_config_file, inventories, variables, group='all'):
             ssh_vars.update({'User': user})
         if identityfile:
             ssh_vars.update({'IdentityFile': identityfile})
+
+        if ssh_common_args:
+            for k,v in parse_ssh_common_args(ssh_common_args).items():
+                ssh_vars.update({k: v})
 
         try:
             ssh_config_file.set(host.get_name(), **ssh_vars)
